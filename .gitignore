@@ -40,4 +40,9 @@ $RECYCLE.BIN/
 .AppleDesktop
 Network Trash Folder
 Temporary Items
-.apdisk
+MobileGuards.v12.suo
+Win32/*
+MobileGuards-Server/Debug/*
+MobileGuards-Server/Release/*
+MobileGuards-Server/GeneratedFiles/*
+MobileGuards-Server/MobileGuards-Server.vcxproj.user
