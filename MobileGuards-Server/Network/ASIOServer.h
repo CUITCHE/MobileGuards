@@ -24,7 +24,7 @@ protected:
 	void socketHandlerError(const SocketReadWriteHandler &socketHandler, const boost::system::error_code &erc);
 	void socketHandlerReceived(const SocketReadWriteHandler &socketHandler, const std::array<char, MAX_IP_PACK_SIZE> &buffer);
 
-	// Handle the socket's error.
+	// Handle the server socket's error.
 	void socketAcceptHandlerError(std::shared_ptr<SocketReadWriteHandler> socketHandler, const boost::system::error_code &erc);
 
 	void recycleIdentity(SocketReadWriteHandler::Identity id);
