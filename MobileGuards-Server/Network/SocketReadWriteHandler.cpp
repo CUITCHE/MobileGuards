@@ -47,9 +47,8 @@ void SocketReadWriteHandler::asyncRead()
 			if (d->errorCallback && *d->errorCallback) {
 				(*d->errorCallback)(*this, errorCode);
 			}
-			return;
 		}
-		// TODO:处理数据，用回调
+		(*d->recieveCallback)(*this, *d->buffer);
 		// 回调处理完毕后，即可发起下一次async read请求
 		this->asyncRead();
 	});
@@ -93,7 +92,9 @@ void SocketReadWriteHandler::registerRecieveCallback(ReceivedCallbackType &&reci
 
 void SocketReadWriteHandler::closeSocket()
 {
-	boost::system::error_code errorCode;
-	d->socket->shutdown(tcp::socket::shutdown_both, errorCode);
-	d->socket->close(errorCode);
+	if (d->socket->is_open()) {
+		boost::system::error_code errorCode;
+		d->socket->shutdown(tcp::socket::shutdown_both, errorCode);
+		d->socket->close(errorCode);
+	}
 }

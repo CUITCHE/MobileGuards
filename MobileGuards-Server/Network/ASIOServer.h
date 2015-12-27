@@ -15,10 +15,19 @@ public:
 	~ASIOServer();
 
 	bool accept();
+	void stopAccept();
+
+	// Close socket handler and recycl Identity label.
+	void killSocketHandler(std::shared_ptr<SocketReadWriteHandler> &socketHandler);
 protected:
 	std::shared_ptr<SocketReadWriteHandler> createSocketHandler();
 	void socketHandlerError(const SocketReadWriteHandler &socketHandler, const boost::system::error_code &erc);
-	void socketHandlerReceived(const std::array<char, MAX_IP_PACK_SIZE> &buffer);
+	void socketHandlerReceived(const SocketReadWriteHandler &socketHandler, const std::array<char, MAX_IP_PACK_SIZE> &buffer);
+
+	// Handle the socket's error.
+	void socketAcceptHandlerError(std::shared_ptr<SocketReadWriteHandler> socketHandler, const boost::system::error_code &erc);
+
+	void recycleIdentity(SocketReadWriteHandler::Identity id);
 private:
 	CLASS_MEMBER_DECLARE(ASIOServer);
 };

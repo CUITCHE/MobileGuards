@@ -20,7 +20,7 @@ public:
 	const Identity id;
 
 	using ErrorCallbackType = std::function < void(const SocketReadWriteHandler&, const boost::system::error_code&) > ;
-	using ReceivedCallbackType = std::function < void(const std::array<char, MAX_IP_PACK_SIZE> &) > ;
+	using ReceivedCallbackType = std::function < void(const SocketReadWriteHandler&, const std::array<char, MAX_IP_PACK_SIZE>&) >;
 
 	SocketReadWriteHandler(io_service &ios, Identity id, QObject *parent = 0);
 	~SocketReadWriteHandler();
@@ -34,10 +34,12 @@ public:
 	void registerErrorCallback(ErrorCallbackType &&errorCallback);
 	void registerRecieveCallback(ReceivedCallbackType &&recieveCallback);
 
+protected:
 	void closeSocket();
 
 private:
 	CLASS_MEMBER_DECLARE(SocketReadWriteHandler);
+	friend class ASIOServer;
 };
 
 #endif // SOCKETREADWRITEHANDLER_H
