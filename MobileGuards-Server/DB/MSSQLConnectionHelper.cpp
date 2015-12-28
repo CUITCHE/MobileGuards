@@ -18,7 +18,8 @@ QSqlError::ErrorType MSSQLConnectionHelper::initConnection()
 		qDebug() << "数据库连接成功!!!";
 	else
 		qDebug() << "数据库连接失败!!!\n详细错误信息:" << mssqlDB.lastError();
-	return mssqlDB.lastError().type();
+
+	return lastError().type();
 }
 
 void MSSQLConnectionHelper::closeConnection()

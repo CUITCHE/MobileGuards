@@ -14,6 +14,8 @@
 
 class DBModule: QThread
 {
+    Q_OBJECT
+    
 	PREPARE_INSTANCE_DECLARE(DBModule)
 public:
 	//初始化数据库连接
@@ -24,7 +26,8 @@ public:
 
 	//重新连接数据库
 	void reconnect();
-
+signals:
+    void dbmodule_connect_failure();
 private:
 	DBModule(QObject *parent = 0);
 	~DBModule();
