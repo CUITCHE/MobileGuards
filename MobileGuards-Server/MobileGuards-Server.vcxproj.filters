@@ -44,9 +44,6 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="stdafx.cpp" />
-    <ClCompile Include="DB\DBModule.cpp">
-      <Filter>DB</Filter>
-    </ClCompile>
     <ClCompile Include="DB\MSSQLConnectionHelper.cpp">
       <Filter>DB</Filter>
     </ClCompile>
@@ -72,13 +69,22 @@
     <ClCompile Include="Logic\SyncQueue.cpp">
       <Filter>Logic</Filter>
     </ClCompile>
+    <ClCompile Include="DB\DBModule.cpp">
+      <Filter>DB</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_DBModule.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_DBModule.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\ThreadPool.cpp">
+      <Filter>Logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="defs.h" />
-    <ClInclude Include="DB\DBModule.h">
-      <Filter>DB</Filter>
-    </ClInclude>
     <ClInclude Include="DB\MSSQLConnectionHelper.h">
       <Filter>DB</Filter>
     </ClInclude>
@@ -92,6 +98,12 @@
       <Filter>Network</Filter>
     </CustomBuild>
     <CustomBuild Include="Logic\SyncQueue.h">
+      <Filter>Logic</Filter>
+    </CustomBuild>
+    <CustomBuild Include="DB\DBModule.h">
+      <Filter>DB</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Logic\ThreadPool.h">
       <Filter>Logic</Filter>
     </CustomBuild>
   </ItemGroup>

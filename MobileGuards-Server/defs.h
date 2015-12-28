@@ -120,4 +120,8 @@ void delete_ptr(Type p, Args... args)
 #ifndef mv
 #define mv(o) std::move(o)
 #endif
+
+#ifndef _sleep
+#define _sleep(n) std::this_thread::sleep_for(std::chrono::milliseconds(n))
+#endif
 #endif // DEFS_H

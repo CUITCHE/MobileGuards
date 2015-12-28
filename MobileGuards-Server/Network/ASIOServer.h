@@ -1,7 +1,6 @@
 #ifndef ASIOSERVER_H
 #define ASIOSERVER_H
 
-#include <QObject>
 #include "SocketReadWriteHandler.h"
 
 class SocketReadWriteHandler;

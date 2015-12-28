@@ -4,7 +4,10 @@
 #include "defs.h"
 #include <list>
 #include <condition_variable>
-using namespace std;
+
+using std::condition_variable;
+using std::list;
+using std::mutex;
 
 template<typename T>
 class SyncQueue
@@ -21,22 +24,29 @@ public:
 		_queueList->reserve(queueMaxSize);
 	}
 	~SyncQueue();
-	void put(T &task)
+	// Return true if put success, otherwise is false.
+	// There is not enough buffer or has been stop if return false.
+	bool put(T &task)
 	{
-		addTask(task);
+		return addTask(task);
 	}
-	void put(T &&task)
+	bool put(T &&task)
 	{
-		addTask(std::forward<T>(task));
+		return addTask(std::forward<T>(task));
 	}
 
 	void take(QList<T> &tasks)
 	{
-		this->takeTask([this, &tasks]{tasks = mv(*_queueList)});
+		this->takeTask([this, &tasks]{
+			tasks = mv(*_queueList);
+		});
 	}
 	void take(T &task)
 	{
-		this->takeTask([this, &task]{task = _queueList->front(); _queueList->pop_front(); });
+		this->takeTask([this, &task]{
+			task = _queueList->front();
+			_queueList->pop_front();
+		});
 	}
 
 	void stop()
@@ -70,9 +80,12 @@ public:
 	}
 protected:
 	template <typename _F>
-	void addTask(_F &&task)
+	bool addTask(_F &&task)
 	{
 		unique_lock<mutex> locker(*mutex);
+		if (this->isFull()) {
+			return false;
+		}
 		_queueConditionoNotFull->wait(locker, [this] {return !this->isFull() || _needStop; });
 		do {
 			if (_needStop) {
@@ -87,6 +100,9 @@ protected:
 	void takeTask(_Pred pred)
 	{
 		std::unique_ptr<mutex> locaker(*_mutex);
+		if (this->isEmpty()) {
+			return;
+		}
 		_queueConditionNotEmpty->wait(locaker, [this] {return !this->isEmpty() || _needStop; });
 		do {
 			if (_needStop) {
