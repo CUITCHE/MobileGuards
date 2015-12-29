@@ -53,6 +53,9 @@ public:
 	{
 		{
 			std::lock_guard<mutex> locker(*_mutex);
+            if (_needStop) {
+                return;
+            }
 			_needStop = true;
 		}
 		_queueConditionoNotFull->notify_all();
@@ -83,9 +86,6 @@ protected:
 	bool addTask(_F &&task)
 	{
 		unique_lock<mutex> locker(*mutex);
-		if (this->isFull()) {
-			return false;
-		}
 		_queueConditionoNotFull->wait(locker, [this] {return !this->isFull() || _needStop; });
 		do {
 			if (_needStop) {
@@ -100,9 +100,6 @@ protected:
 	void takeTask(_Pred pred)
 	{
 		std::unique_ptr<mutex> locaker(*_mutex);
-		if (this->isEmpty()) {
-			return;
-		}
 		_queueConditionNotEmpty->wait(locaker, [this] {return !this->isEmpty() || _needStop; });
 		do {
 			if (_needStop) {

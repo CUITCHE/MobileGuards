@@ -34,7 +34,7 @@ ASIOServer::ASIOServer(quint16 port, QObject *parent)
 
 ASIOServer::~ASIOServer()
 {
-
+    this->stopAccept();
 }
 
 bool ASIOServer::accept()
@@ -87,7 +87,7 @@ void ASIOServer::socketHandlerError(const SocketReadWriteHandler &socketHandler,
 
 }
 
-void ASIOServer::socketHandlerReceived(const SocketReadWriteHandler &socketHandler, const std::array<char, MAX_IP_PACK_SIZE> &buffer)
+void ASIOServer::socketHandlerReceived(const SocketReadWriteHandler &socketHandler, const std::array<char, MAX_IP_PACK_SIZE> *buffer)
 {
 
 }

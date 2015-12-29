@@ -48,9 +48,10 @@ void SocketReadWriteHandler::asyncRead()
 				(*d->errorCallback)(*this, errorCode);
 			}
 		}
-		(*d->recieveCallback)(*this, *d->buffer);
+		(*d->recieveCallback)(*this, d->buffer);
 		// 回调处理完毕后，即可发起下一次async read请求
-		this->asyncRead();
+        // 这里只是给事务中心添加了buffer数据，所以由事务中心发起下一次async read请求
+		// this->asyncRead();
 	});
 }
 

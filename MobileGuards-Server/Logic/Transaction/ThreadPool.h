@@ -13,10 +13,10 @@ public:
 	using _Task = TaskQueueType;
 	using ExecCallbackType = std::function < void(const _Task &object) >;
 	ThreadPool(ExecCallbackType &&execCallback, int numOfThreads = std::thread::hardware_concurrency(), QObject *parent = 0)
-		:tagRunning(0)
-		, threadGroup(new remove_pointer<decltype(threadGroup)>::type)
-		, SyncQueue(new SyncQueue(2000))
-		, execCallback(new ExecCallbackType(mv(execCallback)))
+		:_tagRunning(0)
+		, _threadGroup(new remove_pointer<decltype(_threadGroup)>::type)
+		, _syncQueue(new SyncQueue(2000))
+		, _execCallback(new ExecCallbackType(mv(execCallback)))
 	{}
 	~ThreadPool()
 	{
@@ -25,24 +25,24 @@ public:
 
 	void stop()
 	{
-		syncQueue->stop();
-		if (!tagRunning) {
+		_syncQueue->stop();
+		if (!_tagRunning) {
 			return;
 		}
-		tagRunning = false;
-		for (auto t : *threadGroup) {
+		_tagRunning = false;
+		for (auto t : *_threadGroup) {
 			if (t) {
 				t->join();
 			}
 		}
-		threadGroup->clear();
+		_threadGroup->clear();
 	}
 protected:
 	void start(int numThreads)
 	{
-		tagRunning = 1;
+		_tagRunning = 1;
 		while (numThreads --> 0) {
-			threadGroup->push_back(std::make_shared<std::thread>(&ThreadPool::exec, this));
+			_threadGroup->emplace_back(std::make_shared<std::thread>(&ThreadPool::exec, this));
 		}
 	}
 
@@ -50,16 +50,16 @@ protected:
 	void exec()
 	{
 		_Task task;
-		while (tagRunning) {
-			syncQueue->take(task);
-			(*execCallback)(task);
+		while (_tagRunning) {
+			_syncQueue->take(task);
+			(*_execCallback)(task);
 		}
 	}
 private:
-	std::atomic_bool tagRunning;
-	SyncQueue<_Task> *syncQueue;
-	ExecCallbackType *execCallback;
-	list<std::shared_ptr<std::thread>> *threadGroup;
+	std::atomic_bool _tagRunning;
+	SyncQueue<_Task> *_syncQueue;
+	ExecCallbackType *_execCallback;
+	list<std::shared_ptr<std::thread>> *_threadGroup;
 };
 
 #endif // THREADPOOL_H
