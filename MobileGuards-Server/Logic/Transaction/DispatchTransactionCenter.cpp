@@ -34,10 +34,10 @@ void DispatchTransactionCenter::putTransaction(transaction_packet &transaction)
 		transaction.socket->resetRead();
 		return;
 	}
-
+	
 	auto iter = d->factoryMap->find(protocol);
 	if (iter == d->factoryMap->end()) {
-		qDebug() << "You have forgotten to add method";
+		qDebug() << "You have forgotten to add method. " << "legal protocol is " << static_cast<unsigned int>(protocol);
 		assert(0);
 		return;
 	}
