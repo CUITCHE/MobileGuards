@@ -4,20 +4,24 @@
 #include "SyncQueue.h"
 #include <thread>
 #include <atomic>
+
 using std::thread;
+using std::atomic_bool;
 
 template <typename TaskQueueType>
 class ThreadPool
 {
 public:
-	using _Task = TaskQueueType;
-	using ExecCallbackType = std::function < void(const _Task &object) >;
-	ThreadPool(ExecCallbackType &&execCallback, int numOfThreads = std::thread::hardware_concurrency(), QObject *parent = 0)
-		:_tagRunning(0)
-		, _threadGroup(new remove_pointer<decltype(_threadGroup)>::type)
-		, _syncQueue(new SyncQueue(2000))
-		, _execCallback(new ExecCallbackType(mv(execCallback)))
-	{}
+	using Task = TaskQueueType;
+	using ExecCallbackType = std::function < void(const Task &object) >;
+	ThreadPool(ExecCallbackType &&execCallback, int numOfThreads = std::thread::hardware_concurrency())
+		: CLASS_MEMBER_CONSTRUCTURE(_threadGroup,)
+		, CLASS_MEMBER_CONSTRUCTURE(_syncQueue, 2000)
+		, CLASS_MEMBER_CONSTRUCTURE(_execCallback, mv(execCallback))
+	{
+		_tagRunning = true;
+		this->start(numOfThreads);
+	}
 	~ThreadPool()
 	{
 		this->stop();
@@ -49,15 +53,15 @@ protected:
 	// execute thread function
 	void exec()
 	{
-		_Task task;
+		Task task;
 		while (_tagRunning) {
 			_syncQueue->take(task);
 			(*_execCallback)(task);
 		}
 	}
 private:
-	std::atomic_bool _tagRunning;
-	SyncQueue<_Task> *_syncQueue;
+	atomic_bool _tagRunning;
+	SyncQueue<Task> *_syncQueue;
 	ExecCallbackType *_execCallback;
 	list<std::shared_ptr<std::thread>> *_threadGroup;
 };

@@ -5,12 +5,10 @@
 
 class SocketReadWriteHandler;
 
-class ASIOServer : public QObject
+class ASIOServer
 {
-	Q_OBJECT
-
 public:
-	ASIOServer(quint16 port, QObject *parent = 0);
+	ASIOServer(quint16 port);
 	~ASIOServer();
 
 	bool accept();
@@ -21,7 +19,7 @@ public:
 protected:
 	std::shared_ptr<SocketReadWriteHandler> createSocketHandler();
 	void socketHandlerError(const SocketReadWriteHandler &socketHandler, const boost::system::error_code &erc);
-	void socketHandlerReceived(const SocketReadWriteHandler &socketHandler, const std::array<char, MAX_IP_PACK_SIZE> *buffer);
+	void socketHandlerReceived(const SocketReadWriteHandler &socketHandler, const std::vector<char> *buffer);
 
 	// Handle the server socket's error.
 	void socketAcceptHandlerError(std::shared_ptr<SocketReadWriteHandler> socketHandler, const boost::system::error_code &erc);

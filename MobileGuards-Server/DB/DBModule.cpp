@@ -1,7 +1,12 @@
 #include "stdafx.h"
 #include "DBModule.h"
 
-PREPARE_INSTANCE_DEFINITION(DBModule);
+
+DBModule* DBModule::default()
+{
+	static DBModule *instance = new DBModule;
+	return instance;
+}
 
 DBModule::DBModule(QObject *parent)
 	:QThread(parent)
@@ -10,7 +15,6 @@ DBModule::DBModule(QObject *parent)
 
 DBModule::~DBModule()
 {
-
 }
 
 void DBModule::initConnect()

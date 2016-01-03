@@ -40,6 +40,12 @@
     <Filter Include="Logic">
       <UniqueIdentifier>{ac772569-ea7c-46c0-a9d4-1787aba8d43b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Logic\Transaction">
+      <UniqueIdentifier>{1268b312-dfd7-4420-8c43-baf9cbcd9acf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Logic\CommunicationPackages">
+      <UniqueIdentifier>{971d54eb-731a-41a3-9e42-645221c5f296}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -47,28 +53,13 @@
     <ClCompile Include="DB\MSSQLConnectionHelper.cpp">
       <Filter>DB</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_ASIOServer.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_ASIOServer.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="Network\ASIOServer.cpp">
       <Filter>Network</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_SocketReadWriteHandler.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_SocketReadWriteHandler.cpp">
-      <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="Network\SocketReadWriteHandler.cpp">
       <Filter>Network</Filter>
     </ClCompile>
     <ClCompile Include="synthetise.cpp" />
-    <ClCompile Include="Logic\SyncQueue.cpp">
-      <Filter>Logic</Filter>
-    </ClCompile>
     <ClCompile Include="DB\DBModule.cpp">
       <Filter>DB</Filter>
     </ClCompile>
@@ -78,8 +69,35 @@
     <ClCompile Include="GeneratedFiles\Release\moc_DBModule.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="Logic\ThreadPool.cpp">
-      <Filter>Logic</Filter>
+    <ClCompile Include="Logic\Transaction\DispatchTransactionCenter.cpp">
+      <Filter>Logic\Transaction</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_DispatchTransactionCenter.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_DispatchTransactionCenter.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\Transaction\SyncQueue.cpp">
+      <Filter>Logic\Transaction</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\Transaction\ThreadPool.cpp">
+      <Filter>Logic\Transaction</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\Transaction\TransactionCenter.cpp">
+      <Filter>Logic\Transaction</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_TransactionCenter.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_TransactionCenter.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\CommunicationPackages\CommunicationPackageBase.cpp">
+      <Filter>Logic\CommunicationPackages</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\CommunicationPackages\ClientTestPacket.cpp">
+      <Filter>Logic\CommunicationPackages</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -89,6 +107,21 @@
       <Filter>DB</Filter>
     </ClInclude>
     <ClInclude Include="synthetise.h" />
+    <ClInclude Include="Logic\Transaction\SyncQueue.h">
+      <Filter>Logic\Transaction</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\Transaction\ThreadPool.h">
+      <Filter>Logic\Transaction</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\Transaction\TransactionStructure.h">
+      <Filter>Logic\Transaction</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\CommunicationPackages\ClientTestPacket.h">
+      <Filter>Logic\CommunicationPackages</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\CommunicationPackages\packets.h">
+      <Filter>Logic\CommunicationPackages</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="Network\ASIOServer.h">
@@ -97,14 +130,17 @@
     <CustomBuild Include="Network\SocketReadWriteHandler.h">
       <Filter>Network</Filter>
     </CustomBuild>
-    <CustomBuild Include="Logic\SyncQueue.h">
-      <Filter>Logic</Filter>
-    </CustomBuild>
     <CustomBuild Include="DB\DBModule.h">
       <Filter>DB</Filter>
     </CustomBuild>
-    <CustomBuild Include="Logic\ThreadPool.h">
-      <Filter>Logic</Filter>
+    <CustomBuild Include="Logic\Transaction\DispatchTransactionCenter.h">
+      <Filter>Logic\Transaction</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Logic\Transaction\TransactionCenter.h">
+      <Filter>Logic\Transaction</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Logic\CommunicationPackages\CommunicationPackageBase.h">
+      <Filter>Logic\CommunicationPackages</Filter>
     </CustomBuild>
   </ItemGroup>
 </Project>

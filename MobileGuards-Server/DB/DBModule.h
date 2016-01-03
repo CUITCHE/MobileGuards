@@ -15,9 +15,9 @@
 class DBModule: QThread
 {
     Q_OBJECT
-    
-	PREPARE_INSTANCE_DECLARE(DBModule)
+
 public:
+	static DBModule* default();
 	//初始化数据库连接
 	void initConnect();
 

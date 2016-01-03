@@ -99,8 +99,8 @@ protected:
 	template <typename _Pred>
 	void takeTask(_Pred pred)
 	{
-		std::unique_ptr<mutex> locaker(*_mutex);
-		_queueConditionNotEmpty->wait(locaker, [this] {return !this->isEmpty() || _needStop; });
+		std::unique_lock<mutex> locker(*_mutex);
+		_queueConditionNotEmpty->wait(locker, [this] {return !this->isEmpty() || _needStop; });
 		do {
 			if (_needStop) {
 				break;
@@ -112,7 +112,7 @@ protected:
 private:
 	quint32 _needStop : 1;
 	const quint32 _queueMaxSize : 31;
-	list<T> *_queueList;
+	QList<T> *_queueList;
 	mutex *_mutex;
 	condition_variable *_queueConditionNotEmpty;
 	condition_variable *_queueConditionoNotFull;

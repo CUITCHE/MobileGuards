@@ -5,14 +5,14 @@
 
 class TransactionCenter : public QObject
 {
-    Q_OBJECT
-    
+	Q_OBJECT
+
 public:
-    TransactionCenter(QObject *parent = 0);
-    ~TransactionCenter();
-    
+	TransactionCenter(QObject *parent = 0);
+	~TransactionCenter();
+
 private:
-    CLASS_MEMBER_DECLARE(TransactionCenter);
+	CLASS_MEMBER_DECLARE(TransactionCenter);
 };
 
 #endif
